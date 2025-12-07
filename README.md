@@ -28,11 +28,10 @@ humanoid_ppo_mujoco/
 ├── requirements.txt # Python dependencies
 ├── .gitignore # Git ignore rules
 │
-├── models/ # Saved model checkpoints (not included)
-└── logs/ # TensorBoard and training logs
+├── models/ # Saved model checkpoints (ignored)
+└── logs/ # TensorBoard and training logs (ignored)
 
-yaml
-Copy code
+
 
 ---
 
@@ -44,21 +43,18 @@ Copy code
 python -m venv venv
 venv\Scripts\activate
 
-markdown
-Copy code
+
 
 **Linux / macOS**
 python3 -m venv venv
 source venv/bin/activate
 
-shell
-Copy code
+
 
 ### 2. Install dependencies
 pip install -r requirements.txt
 
-yaml
-Copy code
+
 
 Ensure that MuJoCo is installed through Gymnasium or that the MuJoCo runtime is available on your system.
 
@@ -70,8 +66,7 @@ To train the humanoid using PPO:
 
 python train_humanoid_ppo.py
 
-yaml
-Copy code
+
 
 The script will:
 - Initialize the Humanoid-v4 MuJoCo environment  
@@ -87,8 +82,7 @@ To load and render a trained model:
 
 python eval_humanoid_ppo.py
 
-yaml
-Copy code
+
 
 Edit the script to specify the desired model checkpoint path.
 
@@ -100,8 +94,7 @@ If logging is enabled, launch TensorBoard with:
 
 tensorboard --logdir logs/
 
-yaml
-Copy code
+
 
 This provides visualizations of:
 - Episode returns  
@@ -132,8 +125,7 @@ numpy
 tensorboard
 mujoco==3.2.0
 
-yaml
-Copy code
+
 
 Refer to `requirements.txt` for exact versions.
 
