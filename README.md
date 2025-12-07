@@ -1,140 +1,165 @@
-🧠 Teaching a Humanoid to Walk Using PPO in MuJoCo
-Reinforcement Learning for Humanoid Locomotion
+# Humanoid Locomotion Using PPO in MuJoCo
+Reinforcement Learning for Bipedal Control
 
-This repository contains the training pipeline used to teach a humanoid agent to walk using Proximal Policy Optimization (PPO) in the MuJoCo physics simulator.
-The project validates a complete RL workflow for bipedal locomotion and prepares the foundation for training on a custom Nexomation humanoid model.
+This repository contains a complete training pipeline for teaching a humanoid agent to walk using the Proximal Policy Optimization (PPO) algorithm in the MuJoCo physics simulator.  
+The implementation demonstrates an end-to-end reinforcement learning workflow on the `Humanoid-v4` benchmark environment and serves as a foundation for future experiments with custom humanoid models.
 
-🚀 Project Overview
+---
 
-Humanoid locomotion is a complex control problem due to its high dimensionality, unstable dynamics, and multi-joint coordination requirements.
-Using PPO, a model-free reinforcement learning algorithm, the agent learns to generate stable walking behavior entirely from experience.
+## Project Overview
 
-This repo includes:
+Humanoid locomotion is a complex control problem due to its high dimensionality, unstable dynamics, and continuous action space.  
+Using PPO, the agent learns balance, stepping behavior, and coordinated motion purely from interaction, without manually designed gait trajectories.
 
-PPO training script for Humanoid-v4 environment
+This repository provides:
+- A PPO training script for the Humanoid-v4 environment  
+- An evaluation script for rendering learned policies  
+- A clean structure for model saving and logging  
+- Modular code suitable for extension to custom robots
 
-Evaluation script for rendering learned policies
+---
 
-Modular structure for adding custom humanoid models
+## Repository Structure
 
-Ignore rules for heavy RL models & logs
-
-📁 Repository Structure
 humanoid_ppo_mujoco/
 │
-├── train_humanoid_ppo.py      # Main PPO training pipeline
-├── eval_humanoid_ppo.py       # Evaluation & visualization script
-├── requirements.txt           # Python dependencies
-├── .gitignore                 # Ignore models, logs, venv, etc.
+├── train_humanoid_ppo.py # PPO training pipeline
+├── eval_humanoid_ppo.py # Evaluation and rendering script
+├── requirements.txt # Python dependencies
+├── .gitignore # Git ignore rules
 │
-├── models/                    # (empty) trained models are saved here
-└── logs/                      # (empty) TensorBoard logs or eval data
+├── models/ # Saved model checkpoints (not included)
+└── logs/ # TensorBoard and training logs
 
-⚙️ Installation
-1. Create and activate a virtual environment
+yaml
+Copy code
+
+---
+
+## Installation
+
+### 1. Create and activate a virtual environment
+
+**Windows**
 python -m venv venv
-source venv/bin/activate       # Linux/macOS
-venv\Scripts\activate          # Windows
+venv\Scripts\activate
 
-2. Install dependencies
+markdown
+Copy code
+
+**Linux / macOS**
+python3 -m venv venv
+source venv/bin/activate
+
+shell
+Copy code
+
+### 2. Install dependencies
 pip install -r requirements.txt
 
-3. Install MuJoCo
+yaml
+Copy code
 
-MuJoCo is installed automatically via Gymnasium, but ensure the runtime is available:
+Ensure that MuJoCo is installed through Gymnasium or that the MuJoCo runtime is available on your system.
 
-Download MuJoCo (if required): https://mujoco.org
+---
 
-Ensure environment variables are configured.
+## Training
 
-🧬 Training the Humanoid
-
-Run the PPO training script:
+To train the humanoid using PPO:
 
 python train_humanoid_ppo.py
 
+yaml
+Copy code
 
-This will:
+The script will:
+- Initialize the Humanoid-v4 MuJoCo environment  
+- Train a PPO policy  
+- Save model checkpoints in the `models/` directory  
+- Log metrics into the `logs/` directory  
 
-Initialize MuJoCo Humanoid-v4
+---
 
-Train using PPO
+## Evaluation
 
-Save checkpoints in models/
-
-Log training metrics in logs/
-
-During early training, the humanoid may fall frequently while learning balance and gait patterns.
-
-🎞️ Evaluating a Learned Policy
-
-To visualize the humanoid walking:
+To load and render a trained model:
 
 python eval_humanoid_ppo.py
 
+yaml
+Copy code
 
-You can change the model path inside the script to load a specific checkpoint.
+Edit the script to specify the desired model checkpoint path.
 
-📊 TensorBoard Support
+---
 
-If your training script includes TensorBoard logging:
+## TensorBoard Visualization
+
+If logging is enabled, launch TensorBoard with:
 
 tensorboard --logdir logs/
 
+yaml
+Copy code
 
-This displays curves for:
+This provides visualizations of:
+- Episode returns  
+- Value and policy loss  
+- KL divergence  
+- Training stability over time  
 
-Episode reward
+---
 
-Policy loss
+## Customization Roadmap
 
-Value loss
+The repository is structured to support advanced extensions:
+- Integration of custom humanoid models (URDF → MJCF)  
+- Domain randomization for sim-to-real transfer  
+- Curriculum-based locomotion training  
+- Integration with hardware IMU sensors  
+- Deployment of learned policies on real robotic legs  
 
-KL divergence
+---
 
-Performance over time
+## Dependencies (Summary)
 
-🛠️ Customization Roadmap
-
-This repository is designed to support extensions such as:
-
-✓ Custom humanoid models (URDF → MJCF)
-✓ Domain randomization for sim-to-real
-✓ Curriculum learning (standing → steps → walking)
-✓ Integration with hardware IMU sensors
-✓ Real-world controller deployment
-📌 Requirements
-
-Typical versions used:
-
+Key packages used:
 gymnasium[mujoco]
 stable-baselines3
 torch
 numpy
-mujoco==3.2.0
 tensorboard
+mujoco==3.2.0
 
+yaml
+Copy code
 
-(Exact list in requirements.txt)
+Refer to `requirements.txt` for exact versions.
 
-🧩 Future Work
+---
 
-Integrate Nexomation Humanoid V1 custom URDF
+## Future Work
 
-Train RL policies on custom morphology
+Planned enhancements include:
+- Training RL policies on the Nexomation Humanoid V1 design  
+- Improved reward shaping for stable gait generation  
+- Comparison with alternative RL algorithms  
+- Experimentation with perception-driven locomotion  
+- Real-world deployment on hardware prototypes  
 
-Add perception-based locomotion (vision + RL)
+---
 
-Explore sim-to-real transfer for prototype hardware legs
+## Contributing
 
-🤝 Contributing
+Contributions are welcome for:
+- Additional training features  
+- Improved reward functions  
+- Visualization improvements  
+- Environment wrappers and utilities  
 
-Pull requests are welcome for:
+---
 
-Improved RL training stability
+## License
 
-Alternative reward functions
-
-Better logging/visualization
-
-Custom humanoid examples
+Specify license information here (MIT recommended).
